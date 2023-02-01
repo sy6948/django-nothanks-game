@@ -1,0 +1,94 @@
+.card-title {
+    width: 64px;
+}
+
+.short-div {
+    max-width:300px
+}
+
+#action_buttons {
+    height: 38px
+}
+
+.button {
+    width: 128px;
+}
+
+.cards-area {
+    min-height: 120px;
+}
+
+.half-card {
+    height: 64px;
+    overflow: hidden;
+    padding: 0px;
+}
+
+.play-card {
+    width: 64px;
+    height: 96px;
+}
+
+.play-card-inner {
+    width: 56px;
+    height: 88px;
+}
+
+.token {
+    width: 64px;
+    height: 64px;
+}
+
+.token-inner {
+    width: 56px;
+    height: 56px;
+}
+
+.small-token {
+    width: 16px;
+    height: 16px;
+    padding: 0px;
+}
+
+.small-token-inner {
+    width: 16px;
+    height: 16px;
+}
+
+.large-text {
+    font-size: 32px;
+}
+
+.middle-text {
+    font-size: 24px;
+}
+
+.small-text {
+    font-size: 16px;
+}
+
+.upper-half {
+    left: 50% !important;
+    top: 40% !important;
+    transform: translate(-50%, -50%)!important;
+}
+
+.top-left {
+    top: 5px;
+    left: 5px;
+}
+
+.top-right {
+    top: 5px;
+    right: 5px;
+}
+
+.bottom-left {
+    bottom: 5px;
+    left: 5px;
+}
+
+.bottom-right {
+    bottom: 5px;
+    right: 5px;
+}

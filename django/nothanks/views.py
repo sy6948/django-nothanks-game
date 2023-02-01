@@ -9,7 +9,7 @@ from .models import Game
 from .forms import PlayerUpdateForm
 
 # util
-from .utils import getUserInfo, createGameRoom, joinGameRoom, updateUserName
+from .utils import getUserInfo, createGameRoom, joinGameRoom, updateUserName, joinedRoom
 
 # home page
 def home(request):
@@ -102,7 +102,8 @@ def gameRoom(request, room_uid):
         "room_uid": room_uid,
         "user_id": player.token,
         "title": "Room " + room_uid,
-        "player_form": player_form
+        "player_form": player_form,
+        "joined_room": joinedRoom(game, player)
     }
     
     return render(request, "nothanks/game.html", context)

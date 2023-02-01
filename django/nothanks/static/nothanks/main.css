@@ -5,100 +5,11 @@
     user-select: none; /* Standard */
 }
 
-.card-title {
-    width: 128px;
+.clickable {
+    cursor: pointer;
 }
 
-.short-div {
-    max-width:500px
-}
-
-#action_buttons {
-    height: 38px
-}
-
-.button {
-    width: 128px;
-}
-
-.cards-area {
-    min-height: 120px;
-}
-
-.half-card {
-    height: 96px;
-    overflow: hidden;
-}
-
-.play-card {
-    width: 128px;
-    height: 192px;
-}
-
-.play-card-inner {
-    width: 112px;
-    height: 176px;
-}
-
-/* .play-card-small {
-    width: 64px;
-    height: 96px;
-} */
-
-.token {
-    width: 128px;
-    height: 128px;
-}
-
-.token-inner {
-    width: 112px;
-    height: 112px;
-}
-
-.small-token {
-    width: 32px;
-    height: 32px;
-}
-
-.small-token-inner {
-    width: 32px;
-    height: 32px;
-}
-
-.large-text {
-    font-size: 64px;
-}
-
-.middle-text {
-    font-size: 48px;
-}
-
-.small-text {
-    font-size: 32px;
-}
-
-.upper-half {
-    left: 50% !important;
-    top: 25% !important;
-    transform: translate(-50%, -50%)!important;
-}
-
-.top-left {
-    top: 10px;
-    left: 10px;
-}
-
-.top-right {
-    top: 10px;
-    right: 10px;
-}
-
-.bottom-left {
-    bottom: 10px;
-    left: 10px;
-}
-
-.bottom-right {
-    bottom: 10px;
-    right: 10px;
+.message {
+    width: fit-content;
+    margin: auto;
 }

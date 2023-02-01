@@ -11,20 +11,9 @@
                 <h2>Player List</h2>
                 <div class="container-sm mt-4 my-auto short-div" align="center"><ul id="player_list" class="list-group"></ul></div>
                 <div class="text-center my-4">
+                    {% if joined_room %}
                     <button class="btn btn-outline-primary" type=button id="startGame">Start</button>
-                </div>
-                <!-- Change display name -->
-                <div class="short-div mx-auto">
-                    <form method="POST" action = "{% url 'nothanks-game-room' room_uid %}">
-                        {% csrf_token %}
-                        <div class="input-group">
-                            <span class="input-group-text">Name</span>
-                            {{ player_form }}
-                            <div class="form-group">
-                                <button class="btn btn-outline-primary" type="submit" name="update" value="username">Update</button>
-                            </div>
-                        </div>
-                    </form>
+                    {% endif %}
                 </div>
                 <h3 class="mt-2">Invite Friends</h2>
                 <div class="input-group mb-3 mx-auto short-div" id="inputBox">
@@ -56,7 +45,7 @@
 
                 <!-- Main Area -->
                 <div class="text-center mt-2" id="main_area" align="center" style="z-index: 1">
-                    <div class="container row justify-content-center">
+                    <div class="row justify-content-center">
                         <div class="col-auto">    
                             <div class="mx-auto card-title my-2"><h2>Deck</h2></div>
                             <div class="border mx-auto border border-dark border-5 rounded-4 position-relative bg-danger play-card">
@@ -70,21 +59,23 @@
                         <div class="col-auto">
                             <div class="mx-auto card-title my-2"><h2>Card</h2></div>
                             <div class="border mx-auto rounded-4 position-relative bg-success play-card" id="current_card">
-                                <div class="position-absolute rounded-4 top-50 start-50 translate-middle bg-light play-card-inner"></div>
-                                <div class="position-absolute top-50 start-50 translate-middle">
-                                    <span class="large-text" id="card_value_1">16</span>
-                                </div>
-                                <div class="position-absolute top-left" id="card_value_2">
-                                    16
-                                </div>
-                                <div class="position-absolute top-right" id="card_value_3">
-                                    16
-                                </div>
-                                <div class="position-absolute bottom-left" id="card_value_4">
-                                    16
-                                </div>
-                                <div class="position-absolute bottom-right" id="card_value_5">
-                                    16
+                                <div id="static_card">
+                                    <div class="position-absolute rounded-4 top-50 start-50 translate-middle bg-light play-card-inner"></div>
+                                    <div class="position-absolute top-50 start-50 translate-middle">
+                                        <span class="large-text" id="card_value_1">16</span>
+                                    </div>
+                                    <div class="position-absolute top-left" id="card_value_2">
+                                        16
+                                    </div>
+                                    <div class="position-absolute top-right" id="card_value_3">
+                                        16
+                                    </div>
+                                    <div class="position-absolute bottom-left" id="card_value_4">
+                                        16
+                                    </div>
+                                    <div class="position-absolute bottom-right" id="card_value_5">
+                                        16
+                                    </div>
                                 </div>
                                 <div class="position-absolute rounded-4 top-50 start-50 translate-middle play-card" style="z-index: 2">
                                     <div class="border mx-auto rounded-4 position-relative bg-success play-card" id="moving_card">
@@ -124,9 +115,11 @@
                         </div>
                     </div>
                 </div>
+                <!-- End of Main Area -->
+
                 <!-- Player Area -->
                 <div class="mt-4" id="player_area" style="z-index: 1"></div>
-
+                
                 <!-- result modal -->
                 <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -142,7 +135,37 @@
                         </div>
                     </div>
                 </div>
+
             </div>
+            <!-- End of Play Area-->
+
+            <!-- Update Name Modal -->
+            <div class="modal fade" id="updateNameModal" tabindex="-1" aria-labelledby="updateNameModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="updateNameModalLabel">Change Display Name</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action = "{% url 'nothanks-game-room' room_uid %}">
+                                {% csrf_token %}
+                                <div class="input-group">
+                                    <span class="input-group-text">Name</span>
+                                    {{ player_form }}
+                                    <div class="form-group">
+                                        <button class="btn btn-outline-primary" type="submit" name="update" value="username">Update</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End of Update Name Modal -->
         </div>
     </div>
     <div class="container">

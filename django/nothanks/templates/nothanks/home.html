@@ -6,23 +6,7 @@
 <div class="container mt-auto" align='center'>
     <!-- Static Picture of the Game -->
     <img src="{% static 'nothanks/title.png' %}" class="rounded img-fluid my-4" alt="Responsive image">
-    <!-- Game Description -->
-    <div class="card text-start py-3 px-2">
-        <p><b>No Thanks!</b> is a card game designed to be as simple as it is engaging.</p>
-
-        <p>The rules are simple. Each turn, players have two options:
-            <ul>
-                <li>play one of their chips to avoid picking up the current face-up card</li>
-                <li>pick up the face-up card (along with any chips that have already been played on that card) and turn over the next card</li>
-            </ul>
-        </p>
-        <p>
-            However, the choices aren't so easy as players compete to have the lowest score at the end of the game. The deck of cards is numbered from 3 to 35, with each card counting for a number of points equal to its face value. Runs of two or more cards only count as the lowest value in the run - but nine cards are removed from the deck before starting, so be careful looking for connectors. Each chip is worth -1 point, but they can be even more valuable by allowing you to avoid drawing that unwanted card.
-        </p>
-        <p><a class="link-primary" href="https://boardgamegeek.com/boardgame/12942/no-thanks" target="view_window">BGG</a></p>
-    </div>
     <!-- New Game or Join Game -->
-    
     <div class="my-4 row justify-content-center">
         <div class="col text-end">
             <form method="POST" action = "{% url 'nothanks-home' %}">
@@ -58,17 +42,35 @@
             </form>
         </div>
     </div>
-    
+
     <!-- Change display name -->
-    <form method="POST" action = "{% url 'nothanks-home' %}">
-        {% csrf_token %}
-        <div class="input-group short-div">
-            <span class="input-group-text">Name</span>
-            {{ player_form }}
-            <div class="form-group">
-                <button class="btn btn-outline-primary" type="submit" name="update" value="username">Update</button>
+    <div class="my-4 justify-content-center">
+        <form method="POST" action = "{% url 'nothanks-home' %}">
+            {% csrf_token %}
+            <div class="input-group short-div">
+                <span class="input-group-text">Name</span>
+                {{ player_form }}
+                <div class="form-group">
+                    <button class="btn btn-outline-primary" type="submit" name="update" value="username">Update</button>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
+
+    <!-- Game Description -->
+    <div class="card text-start py-3 px-2">
+        <p><b>No Thanks!</b> is a card game designed to be as simple as it is engaging.</p>
+
+        <p>The rules are simple. Each turn, players have two options:
+            <ul>
+                <li>play one of their chips to avoid picking up the current face-up card</li>
+                <li>pick up the face-up card (along with any chips that have already been played on that card) and turn over the next card</li>
+            </ul>
+        </p>
+        <p>
+            However, the choices aren't so easy as players compete to have the lowest score at the end of the game. The deck of cards is numbered from 3 to 35, with each card counting for a number of points equal to its face value. Runs of two or more cards only count as the lowest value in the run - but nine cards are removed from the deck before starting, so be careful looking for connectors. Each chip is worth -1 point, but they can be even more valuable by allowing you to avoid drawing that unwanted card.
+        </p>
+        <p><a class="link-primary" href="https://boardgamegeek.com/boardgame/12942/no-thanks" target="view_window">BGG</a></p>
+    </div>
 </div>
 {% endblock %}

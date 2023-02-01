@@ -125,6 +125,11 @@ def getGameRoomInfo(room_uid):
 def getGameRoom(room_uid):
     return Game.objects.select_for_update().filter(room_uid = room_uid).first()
 
+# check whether the player already join the game room
+def joinedRoom(game, player):
+    pg = PlayerGame.objects.filter(game = game, player = player).first()
+    return pg != None
+
 # update the game data json
 def updateGameLogs(game_data, logs):
     game_data["last_logs"] = []

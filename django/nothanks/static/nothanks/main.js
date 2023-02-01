@@ -39,9 +39,14 @@ function connect() {
         if (data.status == 'start') {
             $("#player_list").empty()
             for (let i = 0 ; i < data.user_list.length; i++) {
-                let player = "<li class='list-group-item'>" + 
-                    data.user_list[i].username +
-                    "</li>"
+                let edit_icon = `<i class="fa fa-pencil clickable" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#updateNameModal"></i>`
+                if (data.user_list[i].user_token == user_id) {
+                    player = "<li class='list-group-item'>" + 
+                        data.user_list[i].username + " " + edit_icon + "</li>"
+                } else {
+                    player = "<li class='list-group-item'>" + data.user_list[i].username + "</li>"
+                }
+                
                 $("#player_list").append(player)
             }
 
@@ -218,6 +223,11 @@ function moveCardToPlayer(id) {
     pos2 = $(id).offset()
     left_offset = pos2.left - pos1.left
     top_offset = pos2.top - pos1.top
+
+    // hide the static card
+    $("#current_card").removeClass("border")
+    $("#current_card").removeClass("bg-success")
+    $("#static_card").hide()
     
     $("#moving_card").animate({
         "left": `${left_offset}px`,
@@ -248,6 +258,10 @@ function updatePublicArea(game_data) {
     for (let i = 1; i <= 10; i++) {
         $(`#card_value_${i}`).text(game_data.public.card)    
     }
+    // show card
+    $("#current_card").addClass("border")
+    $("#current_card").addClass("bg-success")    
+    $("#static_card").show()
     // update chips
     $("#num_of_coin").text(game_data.public.coins)
 }
@@ -258,12 +272,12 @@ function initPlayerArea(player) {
     coins = player.coins
     let player_area = `
     <div class="container card cards-area mt-2 border border-5" id="area_player_${player_id}" style="z-index:0">
-        <div class="container row mt-2" id="username_coin_P1">
+        <div class="row mt-2" id="username_coin_P1">
             <div class="col-auto">
-                <h3 class="my-auto" id="username_${player_id}">${username}</h3>
+                <h3 class="my-auto" id="username_${player_id}">${username} <i id="arrow_player_${player_id}" class="fa fa-small fa-arrow-left" style="color:red" aria-hidden="true"></i></h3>
             </div>
             <div class="col">
-                <div class="container row">
+                <div class="row">
                     <div class="col-auto my-auto">
                         <h4 class="my-auto" id="coins_${player_id}">${coins} x</h4>
                     </div>
@@ -276,7 +290,7 @@ function initPlayerArea(player) {
                 </div>
             </div>
         </div>
-        <div class="container row my-2" id="cards_${player_id}">
+        <div class="row my-2" id="cards_${player_id}">
         </div>
     </div>
     `
@@ -337,7 +351,14 @@ function addCardsToArea(player_id, cards) {
         card_div = getCardDiv(cards[0])
         $(area_id).append(card_div)
     } else {
-        width = 128 + (cards.length - 1) * 32 + 16
+        // wide screen width > 600px
+        if ($(window).width() > 600) {
+            width = 128 + (cards.length - 1) * 32 + 16
+        } else {
+            width = 64 + (cards.length - 1) * 32 + 16
+        }
+        // small screen width <= 600px
+        
         $(area_id).append(`<div class="col-auto half-card"><div class="position-relative" id="card_list_${cards[0]}" style="width:${width}px"></div></div>`)
         for (let i = 0; i < cards.length; i++) {
             card_div = getStackedCardDiv(cards[cards.length - i - 1], 32 * (cards.length - i - 1))
@@ -352,8 +373,10 @@ function updatePlayerArea(game_data, player) {
     // update border color: red for current color, dark for other
     if (isCurrentUser(game_data, player.user_id)) {
         $(`#area_player_${player_id}`).removeClass("border-danger border-dark").addClass("border-danger")
+        $(`#arrow_player_${player_id}`).show()
     } else {
         $(`#area_player_${player_id}`).removeClass("border-danger border-dark").addClass("border-dark")
+        $(`#arrow_player_${player_id}`).hide()
     }
     
 
