@@ -1,0 +1,153 @@
+{% extends "nothanks/base.html" %}
+{% load static %}
+
+{% block content %}
+    <!-- user join this game -->
+    <div class="container mt-auto">
+        <h1 class="mt-4" align='center'>Game Room - {{ room_uid }}</h1>
+        <div class="text-start px-2">
+            <!-- User List -->
+            <div class="contaner text-center" id="user_list_component" style="display: none">
+                <h2>Player List</h2>
+                <div class="container-sm mt-4 my-auto short-div" align="center"><ul id="player_list" class="list-group"></ul></div>
+                <div class="text-center my-4">
+                    <button class="btn btn-outline-primary" type=button id="startGame">Start</button>
+                </div>
+                <!-- Change display name -->
+                <div class="short-div mx-auto">
+                    <form method="POST" action = "{% url 'nothanks-game-room' room_uid %}">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <span class="input-group-text">Name</span>
+                            {{ player_form }}
+                            <div class="form-group">
+                                <button class="btn btn-outline-primary" type="submit" name="update" value="username">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <h3 class="mt-2">Invite Friends</h2>
+                <div class="input-group mb-3 mx-auto short-div" id="inputBox">
+                    <span class="input-group-text">URL</span>
+                    <input type="text" class="form-control" placeholder="Game Room's Link" aria-label="Link" aria-describedby="basic-addon2" value="http://{{ request.get_host }}{% url 'nothanks-join-room' room_uid %}" onClick="this.setSelectionRange(0, this.value.length)" id="invitationLink">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary" type="button" id="copyLinkButton">Copy Link</button>
+                    </div>
+                    <div class="container text-primary text-start" id="copyMsg" style="display: none;">Copied!</div>
+                </div>
+            </div>
+            <!-- Play Area -->
+            <div class="container no-select" id="play_area_component" style="display: none;" style="z-index : 0">
+                <!-- Message Area -->
+                
+                <!-- Buttons Area -->
+                <div class="text-center mt-4" id="action_buttons">
+                    <button class="btn btn-primary me-2 button" type="button" id="passTurn">Pass</button>
+                    <button class="btn btn-primary ms-2 button" type="button" id="takeCard">Take card</button>
+                </div>
+                <div class="text-center mt-4" id="result_buttons">
+                    <form action="{% url 'nothanks-home' %}">
+                        <button class="btn btn-primary" type="submit">Go to Main Page</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#resultModal">
+                            Show Scores
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Main Area -->
+                <div class="text-center mt-2" id="main_area" align="center" style="z-index: 1">
+                    <div class="container row justify-content-center">
+                        <div class="col-auto">    
+                            <div class="mx-auto card-title my-2"><h2>Deck</h2></div>
+                            <div class="border mx-auto border border-dark border-5 rounded-4 position-relative bg-danger play-card">
+                                <!-- <div class="position-absolute rounded-4 top-50 start-50 translate-middle bg-light play-card-inner"></div> -->
+                                <div class="position-absolute top-50 start-50 translate-middle">
+                                    <span class="large-text text-white" id="deck_num_of_card_1">25</span><br>
+                                    <span class="small-text text-white" id="deck_num_of_card_2">cards</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="mx-auto card-title my-2"><h2>Card</h2></div>
+                            <div class="border mx-auto rounded-4 position-relative bg-success play-card" id="current_card">
+                                <div class="position-absolute rounded-4 top-50 start-50 translate-middle bg-light play-card-inner"></div>
+                                <div class="position-absolute top-50 start-50 translate-middle">
+                                    <span class="large-text" id="card_value_1">16</span>
+                                </div>
+                                <div class="position-absolute top-left" id="card_value_2">
+                                    16
+                                </div>
+                                <div class="position-absolute top-right" id="card_value_3">
+                                    16
+                                </div>
+                                <div class="position-absolute bottom-left" id="card_value_4">
+                                    16
+                                </div>
+                                <div class="position-absolute bottom-right" id="card_value_5">
+                                    16
+                                </div>
+                                <div class="position-absolute rounded-4 top-50 start-50 translate-middle play-card" style="z-index: 2">
+                                    <div class="border mx-auto rounded-4 position-relative bg-success play-card" id="moving_card">
+                                        <div class="position-absolute rounded-4 top-50 start-50 translate-middle bg-light play-card-inner"></div>
+                                        <div class="position-absolute top-50 start-50 translate-middle">
+                                            <span class="large-text" id="card_value_6">16</span>
+                                        </div>
+                                        <div class="position-absolute top-left" id="card_value_7">
+                                            16
+                                        </div>
+                                        <div class="position-absolute top-right" id="card_value_8">
+                                            16
+                                        </div>
+                                        <div class="position-absolute bottom-left" id="card_value_9">
+                                            16
+                                        </div>
+                                        <div class="position-absolute bottom-right" id="card_value_10">
+                                            16
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="mx-auto card-title my-2">
+                                <h2>Chips</h2>
+                            </div>
+                            <div class="mx-auto position-relative play-card">
+                                <div class="position-absolute border border-dark border-5 rounded-circle top-50 start-50 translate-middle bg-warning token-inner"></div>
+                                <div class="position-absolute top-50 start-50 translate-middle large-text" id="num_of_coin"></div>
+                                <div class="position-absolute top-50 start-50 translate-middle large-text" style="z-index: 2;">
+                                    <div class="mx-auto position-relative small-token" id="public_coin" style="display : none;">
+                                        <div class="position-absolute border border-dark border-3 rounded-circle top-50 start-50 translate-middle bg-warning small-token-inner"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Player Area -->
+                <div class="mt-4" id="player_area" style="z-index: 1"></div>
+
+                <!-- result modal -->
+                <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="resultModalLabel">Final Scores</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="resultModalBody"></div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div id="data_area"></div>
+    </div>
+
+    <script src="{% static 'nothanks/game.js' %}"></script>
+{% endblock %}
