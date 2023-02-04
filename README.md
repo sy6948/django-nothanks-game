@@ -1,13 +1,13 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]]([https://example.com](https://github.com/sy6948/django-nothanks-game))
 
 This is an implementation of the board game "<a href="https://boardgamegeek.com/boardgame/12942/no-thanks">No Thanks</a>".
 
 ### Built With
-* <a href="https://www.djangoproject.com/" target="_blank">Django</a>
-* <a href="https://channels.readthedocs.io/en/stable/" target="_blank">Django Channels</a>
+* <a href="https://www.djangoproject.com/">Django</a>
+* <a href="https://channels.readthedocs.io/en/stable/">Django Channels</a>
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -22,11 +22,11 @@ This is an implementation of the board game "<a href="https://boardgamegeek.com/
     ```sh
     docker-compose up
     ```
-2. Browse the <a href="http://localhost:8080" target="_blank">localhost</a>
+2. Browse the <a href="http://localhost:8080">localhost</a>
 
 ### Demo
 
-<a href="http://ecs-lb-2008529389.ap-east-1.elb.amazonaws.com/" target="_blank">View Demo</a>
+<a href="http://ecs-lb-2008529389.ap-east-1.elb.amazonaws.com/">View Demo</a>
 
 <!-- LICENSE -->
 ## License
