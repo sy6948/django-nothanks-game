@@ -39,3 +39,5 @@ services:
       - PYTHONUNBUFFERED=1
     #volumes:
     #  - ./django/:/usr/src/app
+    env_file:
+      - ./env/django.env
