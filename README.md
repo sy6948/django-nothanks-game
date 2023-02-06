@@ -22,7 +22,7 @@ This is an implementation of the board game "<a href="https://boardgamegeek.com/
     ```sh
     docker-compose up
     ```
-2. Browse the <a href="http://localhost:8080">localhost</a>
+2. Browse the <a href="http://localhost:8080">localhost:8080</a>
 
 ### Demo
 
